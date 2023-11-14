@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Video;
 using YG;
@@ -18,9 +19,13 @@ public class SelectVideo : MonoBehaviour
 
     [SerializeField] YandexGame _sdk;
     
-    public void Select(int index) => StartCoroutine(SelectC(index));
-    private void OnVideoPrepared(VideoPlayer player) =>
+    public void Select(int index) => 
+        StartCoroutine(SelectC(index));
+    private void OnVideoPrepared(VideoPlayer player)
+    {
         Length = player.length;
+    }
+       
 
     private IEnumerator SelectC(int index)
     {
@@ -34,15 +39,27 @@ public class SelectVideo : MonoBehaviour
         _iconcall.IndexImage(index);
         _callbell.PrepareSound(1);
         string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, _videoFileName[index]);
-        _player.url = videoPath;
-        _player.Prepare();
-        _player.prepareCompleted += (value) => OnVideoPrepared(value);
-
+        PrepareVideo(videoPath);
         Notnecessary();
         TheBell();
         yield return new WaitForSeconds(3f);
         Notbell();
+    }
 
+    private void PrepareVideo(string videoPath)
+    {
+        _player.url = videoPath;
+        _player.Prepare();
+        _player.prepareCompleted += (value) =>
+        {
+            OnVideoPrepared(value);
+            StartCoroutine(Playing());
+        };
+    }
+
+    private IEnumerator Playing()
+    {
+        Debug.Log("Playing");
         _player.Play();
         var i = 0;
         while (i < Length)
