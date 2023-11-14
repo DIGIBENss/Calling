@@ -12,43 +12,16 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(int soundIndex)
+    public void PrepareSound(int index)
     {
-        if (soundIndex >= 0 && soundIndex < audioClips.Length)
-        {
-            audioSource.clip = audioClips[soundIndex];
-            audioSource.Play();
-        }
-        else if (soundIndex >= 1 && soundIndex < audioClips.Length)
-        {
-            audioSource.clip = audioClips[soundIndex];
-            audioSource.Play();
-        }
-        else if (soundIndex >= 2 && soundIndex < audioClips.Length)
-        {
-            audioSource.clip = audioClips[soundIndex];
-            audioSource.Play();
-        }
-        else if (soundIndex >= 3 && soundIndex < audioClips.Length)
-        {
-            audioSource.clip = audioClips[soundIndex];
-            audioSource.Play();
-        }
-        else if (soundIndex >= 4 && soundIndex < audioClips.Length)
-        {
-            audioSource.clip = audioClips[soundIndex];
-            audioSource.Play();
-        }
-        else if (soundIndex >= 5 && soundIndex < audioClips.Length)
-        {
-            audioSource.clip = audioClips[soundIndex];
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.LogError("Invalid sound index");
-        }
+        audioSource.clip = audioClips[index];
+        audioSource.clip.LoadAudioData();
     }
+
+    public void PlaySound() =>
+        audioSource.Play();
+    
+
     private void Bell()
     {
         if (!IsNotBell)

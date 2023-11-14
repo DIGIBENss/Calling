@@ -10,7 +10,7 @@ public class BackgroundChanger : MonoBehaviour
     public void Change()
     {
         if(index + 1 < _sprites.Count)index++;
-        else index = 0;
+        else index = 0; 
         _bg.sprite = _sprites[index]; 
     }
 }

@@ -32,7 +32,7 @@ public class SelectVideo : MonoBehaviour
             
         }
         _iconcall.IndexImage(index);
-
+        _callbell.PrepareSound(1);
         string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, _videoFileName[index]);
         _player.url = videoPath;
         _player.Prepare();
@@ -66,15 +66,16 @@ public class SelectVideo : MonoBehaviour
         _textmain.SetActive(false);
         _menucontent.SetActive(false);
     }
+
     private void TheBell()
     {
-        _callbell.PlaySound(1);
+        _callbell.PlaySound();
         _callbellobject.SetActive(true);
     }
+
     private void Notbell()
     {
         _callbellobject.SetActive(false);
-
         _videoplayerobject.SetActive(true);
     }
 }
