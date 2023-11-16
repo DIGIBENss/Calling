@@ -59,14 +59,10 @@ public class SelectVideo : MonoBehaviour
 
     private IEnumerator Playing()
     {
-        Debug.Log("Playing");
+        while (!_player.isPrepared) yield return null;
         _player.Play();
-        var i = 0;
-        while (i < Length)
-        {
-            yield return new WaitForSeconds(1);
-            i++;
-        }
+        _player.playbackSpeed = 1;
+        while (_player.isPlaying) yield return null;
         Deceline();
     }
 
@@ -94,5 +90,11 @@ public class SelectVideo : MonoBehaviour
     {
         _callbellobject.SetActive(false);
         _videoplayerobject.SetActive(true);
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus) Time.timeScale = 0;
+        else Time.timeScale = 1;
     }
 }
