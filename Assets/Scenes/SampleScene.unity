@@ -922,7 +922,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.185, y: 0.047000002}
-  m_AnchoredPosition: {x: 38.000244, y: 0.5996094}
+  m_AnchoredPosition: {x: 38.00023, y: 0.5996094}
   m_SizeDelta: {x: 73.20001, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &489997578
@@ -1879,9 +1879,9 @@ VideoPlayer:
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
-  m_SkipOnDrop: 1
+  m_SkipOnDrop: 0
   m_Looping: 0
-  m_WaitForFirstFrame: 1
+  m_WaitForFirstFrame: 0
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
 --- !u!114 &1159605111
