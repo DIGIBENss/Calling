@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Video;
 using YG;
 
@@ -14,7 +15,8 @@ public class SelectVideo : MonoBehaviour
     [SerializeField] private AudioManager _callbell;
     [SerializeField] private GameObject _callbellobject;
     [SerializeField] private IconCall _iconcall;
-    [SerializeField] private string[] _videoFileName =  new string[] { "1.mp4", "2.mp4", "3.mp4", "4.mp4" };
+    [SerializeField] private string[] _videoFileName =  new string[] { "1.mp4", "2.mp4", "3.mp4", "4.mp4", "5.mp4" };
+    [SerializeField] private FullScreenToggle _fullscreenmode;
     private double Length = 0;
 
     [SerializeField] YandexGame _sdk;
@@ -39,33 +41,21 @@ public class SelectVideo : MonoBehaviour
         _iconcall.IndexImage(index);
         _callbell.PrepareSound(1);
         string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, _videoFileName[index]);
-        PrepareVideo(videoPath);
         Notnecessary();
         TheBell();
         yield return new WaitForSeconds(3f);
+        PrepareVideo(videoPath);
         Notbell();
-    }
-
-    private void PrepareVideo(string videoPath)
-    {
-        _player.url = videoPath;
-        _player.Prepare();
-        _player.prepareCompleted += (value) =>
-        {
-            OnVideoPrepared(value);
-            StartCoroutine(Playing());
-        };
-    }
-
-    private IEnumerator Playing()
-    {
-        while (!_player.isPrepared) yield return null;
-        _player.Play();
-        _player.playbackSpeed = 1;
-        while (_player.isPlaying) yield return null;
+        yield return new WaitForSeconds(10f);
         Deceline();
     }
 
+    public void PrepareVideo(string videoPath)
+    {
+        _player.url = videoPath;
+        _player.Prepare();
+        _player.Play();
+    }
     public void Deceline()
     {
         _textmain.SetActive(true);
