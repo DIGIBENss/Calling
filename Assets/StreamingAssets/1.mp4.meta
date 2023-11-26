@@ -25,8 +25,8 @@ VideoClipImporter:
     13:
       enableTranscoding: 1
       codec: 0
-      resizeFormat: 0
-      aspectRatio: 0
+      resizeFormat: 7
+      aspectRatio: 5
       customWidth: 576
       customHeight: 1024
       bitrateMode: 0

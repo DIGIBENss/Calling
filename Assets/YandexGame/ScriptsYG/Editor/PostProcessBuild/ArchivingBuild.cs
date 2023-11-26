@@ -33,7 +33,7 @@ namespace YG.EditorScr.BuildModify
 
                 void Do()
                 {
-                    //ZipFile.CreateFromDirectory(pathToBuiltProject, pathToBuiltProject + number + ".zip");
+                    ZipFile.CreateFromDirectory(pathToBuiltProject, pathToBuiltProject + number + ".zip");
                 }
             }
         }

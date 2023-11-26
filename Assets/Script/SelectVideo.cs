@@ -16,19 +16,12 @@ public class SelectVideo : MonoBehaviour
     [SerializeField] private GameObject _callbellobject;
     [SerializeField] private IconCall _iconcall;
     [SerializeField] private string[] _videoFileName =  new string[] { "1.mp4", "2.mp4", "3.mp4", "4.mp4", "5.mp4" };
-    [SerializeField] private FullScreenToggle _fullscreenmode;
-    private double Length = 0;
+    private int _index;
 
     [SerializeField] YandexGame _sdk;
+    [SerializeField] private AdvertisementManager _advertisementmanager;
     
-    public void Select(int index) => 
-        StartCoroutine(SelectC(index));
-    private void OnVideoPrepared(VideoPlayer player)
-    {
-        Length = player.length;
-    }
-       
-
+    public void Select(int index) => StartCoroutine(SelectC(index));
     private IEnumerator SelectC(int index)
     {
         if (index > _videoFileName.Length) yield break;
@@ -46,8 +39,6 @@ public class SelectVideo : MonoBehaviour
         yield return new WaitForSeconds(3f);
         PrepareVideo(videoPath);
         Notbell();
-        yield return new WaitForSeconds(10f);
-        Deceline();
     }
 
     public void PrepareVideo(string videoPath)
@@ -55,6 +46,18 @@ public class SelectVideo : MonoBehaviour
         _player.url = videoPath;
         _player.Prepare();
         _player.Play();
+        _player.loopPointReached += OnVideoEnd;
+    }
+    private void OnVideoEnd(VideoPlayer player)
+    {
+        _index++;
+        Debug.Log(_index);
+        if (_index == 2)
+        {
+            _advertisementmanager.BeforeFeedback();
+        }
+        Deceline();
+        _player.loopPointReached -= OnVideoEnd;
     }
     public void Deceline()
     {

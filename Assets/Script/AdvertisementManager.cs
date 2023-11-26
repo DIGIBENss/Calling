@@ -16,13 +16,11 @@ public class AdvertisementManager : MonoBehaviour
     [SerializeField] private Call _call;
     private void Start()
     {
-        //StartCoroutine(BeforeAdvertising());
-        //StartCoroutine(BeforeFeedback());
+        StartCoroutine(BeforeAdvertising());
     }
    
-    private IEnumerator BeforeFeedback()
+    public void BeforeFeedback()
     {
-        yield return new WaitForSeconds(30f);
         _feedback.SetActive(true);
         _call.StartTheBell();
     }
